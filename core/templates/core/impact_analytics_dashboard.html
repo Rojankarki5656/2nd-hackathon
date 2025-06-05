@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-50">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Impact Analytics Dashboard | FreshGuard+</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        fontFamily: { sans: ["Inter", "sans-serif"] },
+        extend: {
+          colors: {
+            primary: "#4CAF50",
+            accent: "#FFE066",
+            danger: "#FF6B6B",
+            safe: "#4CAF50",
+            caution: "#FFD166",
+            risky: "#EF476F",
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="font-sans antialiased min-h-screen bg-gray-50">
+  <!-- Header -->
+  <div class="flex items-center justify-between px-8 py-6 bg-white shadow">
+    <div class="flex items-center space-x-3">
+      <a href="{% url 'core-impact_analytics_dashboard' %}" class="flex items-center space-x-3">
+        <img src="https://img.icons8.com/color/48/000000/cutting-board.png" alt="FreshGuard+" class="w-10 h-10" />
+        <span class="text-2xl font-bold text-primary">FreshGuard+</span>
+      </a>
+    </div>
+    <div class="flex items-center space-x-4">
+      <a href="{% url 'core-profile' %}"
+        class="bg-white border border-primary text-primary px-5 py-2 rounded-lg font-semibold hover:bg-primary hover:text-white transition">
+        Profile
+      </a>
+      <a href="{% url 'core-logout' %}"
+        class="bg-primary text-white px-5 py-2 rounded-lg font-semibold hover:bg-green-600 transition">
+        Logout
+      </a>
+    </div>
+  </div>
+
+  <!-- Impact Analytics Dashboard -->
+  <div class="max-w-4xl mx-auto py-12 px-4">
+    <h1 class="text-3xl font-bold text-center text-purple-600 mb-6">
+      Impact Analytics Dashboard
+    </h1>
+    <p class="text-center text-gray-600 mb-10">
+      Visualize your food safety, waste reduction, and donation impact with
+      real-time analytics.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Card 1: Waste Reduced -->
+      <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
+        <div class="bg-green-100 rounded-full p-4 mb-4">
+          <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M12 8v4l3 3" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="12" cy="12" r="10" />
+          </svg>
+        </div>
+        <div class="text-2xl font-bold text-primary mb-1">
+          {{ food_waste_reduced }} kg
+        </div>
+        <div class="text-gray-700">Food Waste Reduced</div>
+      </div>
+      <!-- Card 2: Donations -->
+      <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
+        <div class="bg-blue-100 rounded-full p-4 mb-4">
+          <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M12 8c-2.21 0-4 1.79-4 4 0 2.21 1.79 4 4 4s4-1.79 4-4c0-2.21-1.79-4-4-4zm0 0V4m0 16v-4" />
+          </svg>
+        </div>
+        <div class="text-2xl font-bold text-blue-600 mb-1">
+          {{ donations_matched }}
+        </div>
+        <div class="text-gray-700">Donations Matched</div>
+      </div>
+      <!-- Card 3: Community Reports -->
+      <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
+        <div class="bg-red-100 rounded-full p-4 mb-4">
+          <svg class="w-8 h-8 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M18 8a6 6 0 1 0-12 0c0 7 6 13 6 13s6-6 6-13z" />
+            <circle cx="12" cy="8" r="2" />
+          </svg>
+        </div>
+        <div class="text-2xl font-bold text-red-600 mb-1">
+          {{ community_reports }}
+        </div>
+        <div class="text-gray-700">Community Reports</div>
+      </div>
+      <!-- Card 4: Safe Ingredients Scanned -->
+      <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
+        <div class="bg-yellow-100 rounded-full p-4 mb-4">
+          <svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path
+              d="M12 20v-6M12 4v2M6.93 6.93l-1.42 1.42M17.07 6.93l1.42 1.42M4 12H2M22 12h-2M6.93 17.07l-1.42-1.42M17.07 17.07l1.42-1.42" />
+            <circle cx="12" cy="12" r="5" />
+          </svg>
+        </div>
+        <div class="text-2xl font-bold text-yellow-600 mb-1">
+          {{ safe_ingredients_scanned }}
+        </div>
+        <div class="text-gray-700">Safe Ingredients Scanned</div>
+      </div>
+    </div>
+    <!-- Example Chart (static image for demo) -->
+    <div class="mt-12 bg-white rounded-xl shadow-lg p-8">
+      <h2 class="text-xl font-semibold text-purple-700 mb-4">
+        Monthly Impact Overview
+      </h2>
+      <!-- Charts Section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Line Chart: Daily Expiry Trends -->
+        <div>
+          <h3 class="font-semibold text-gray-700 mb-2 text-sm">
+            Daily Expiry Trends
+          </h3>
+          <canvas id="expiryLineChart" class="w-full h-40"></canvas>
+        </div>
+        <!-- Donut: Food Status Breakdown -->
+        <div>
+          <h3 class="font-semibold text-gray-700 mb-2 text-sm">
+            Food Status Breakdown
+          </h3>
+          <canvas id="statusDonutChart" class="w-full h-40"></canvas>
+        </div>
+        <!-- Bar Graph: Ingredient Flags by Type -->
+        <div class="md:col-span-2">
+          <h3 class="font-semibold text-gray-700 mb-2 text-sm">
+            Ingredient Flags by Type
+          </h3>
+          <canvas id="flagsBarChart" class="w-full h-40"></canvas>
+        </div>
+      </div>
+      <!-- Downloadable Report -->
+      <div class="mt-8 flex justify-end">
+        <a href="#"
+          class="bg-purple-600 text-white px-4 py-2 rounded font-semibold hover:bg-purple-700 transition text-sm">
+          Download Weekly Report
+        </a>
+      </div>
+      <div class="text-xs text-gray-400 text-center mt-4">
+        Shows how much food is saved, discarded, donated, or flagged
+        unsafe.<br />
+        Helps management make better storage and purchasing decisions.
+      </div>
+    </div>
+  </div>
+  <!-- Chart.js CDN and Demo Data -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Pass Django context data to JS
+    const expiryTrends = {{ expiry_trends| safe }};
+    const statusBreakdown = {{ status_breakdown.values| safe }};
+    const statusLabels = {{ status_breakdown.keys| safe }};
+    const flagsByType = {{ flags_by_type.values| safe }};
+    const flagsLabels = {{ flags_by_type.keys| safe }};
+
+    // Line Chart: Daily Expiry Trends
+    new Chart(document.getElementById("expiryLineChart"), {
+      type: "line",
+      data: {
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], // Or pass from context
+        datasets: [
+          {
+            label: "Items Expiring",
+            data: expiryTrends,
+            borderColor: "#7c3aed",
+            backgroundColor: "rgba(124, 58, 237, 0.1)",
+            fill: true,
+            tension: 0.4,
+          },
+        ],
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } },
+      },
+    });
+
+    // Donut: Food Status Breakdown
+    new Chart(document.getElementById("statusDonutChart"), {
+      type: "doughnut",
+      data: {
+        labels: statusLabels,
+        datasets: [
+          {
+            data: statusBreakdown,
+            backgroundColor: ["#4CAF50", "#FF6B6B", "#2196F3", "#FFD166"],
+          },
+        ],
+      },
+      options: {
+        plugins: { legend: { position: "bottom" } },
+      },
+    });
+
+    // Bar Graph: Ingredient Flags by Type
+    new Chart(document.getElementById("flagsBarChart"), {
+      type: "bar",
+      data: {
+        labels: flagsLabels,
+        datasets: [
+          {
+            label: "Flags",
+            data: flagsByType,
+            backgroundColor: ["#FF6B6B", "#FFD166", "#2196F3", "#B7E4C7"],
+          },
+        ],
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } },
+      },
+    });
+  </script>
+</body>
+
+</html>

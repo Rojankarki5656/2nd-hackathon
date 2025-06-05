@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-50">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Donation Details | FreshGuard+</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .glass {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 8px 32px 0 rgba(60, 72, 88, 0.15);
+      }
+      .navbar-blur {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(6px);
+        box-shadow: 0 2px 12px 0 rgba(60, 72, 88, 0.08);
+      }
+      .fade-in {
+        animation: fadeIn 0.7s;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body class="font-sans antialiased min-h-screen dashboard-bg">
+    <!-- Header -->
+    <div class="flex items-center justify-between px-8 py-6 bg-white shadow">
+      <div class="flex items-center space-x-3">
+        <a
+          href="{% url 'core-dashboard' %}"
+          class="flex items-center space-x-3"
+        >
+          <img
+            src="https://img.icons8.com/color/48/000000/cutting-board.png"
+            alt="FreshGuard+"
+            class="w-10 h-10"
+          />
+          <span class="text-2xl font-bold text-green-600">FreshGuard+</span>
+        </a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a
+          href="{% url 'core-profile' %}"
+          class="bg-gray-100 text-green-600 px-5 py-2 rounded-lg font-semibold hover:bg-gray-200 transition flex items-center"
+          title="Profile"
+        >
+          <svg
+            class="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 20c0-4 4-7 8-7s8 3 8 7" />
+          </svg>
+          Profile
+        </a>
+        <a
+          href="{% url 'core-logout' %}"
+          class="bg-primary text-white px-5 py-2 rounded-lg font-semibold hover:bg-green-600 transition"
+        >
+          Logout
+        </a>
+      </div>
+    </div>
+
+
+    <!-- Back to Donation Portal Link -->
+    <div class="max-w-2xl mx-auto mt-6 px-4">
+      <a
+        href="{% url 'core-donation_portal_dashboard' %}"
+        class="inline-flex items-center text-primary hover:underline font-semibold mb-4"
+      >
+        <svg
+          class="w-5 h-5 mr-2"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+        Back to Donation Portal
+      </a>
+    </div>
+    <!-- Main Content -->
+    <div
+      class="w-full max-w-md glass rounded-2xl shadow-xl p-8 space-y-8 mt-24 mx-auto fade-in"
+    >
+      <h2
+        class="text-center text-2xl font-bold text-green-600 mb-4 flex items-center justify-center gap-2"
+      >
+        <svg
+          class="w-7 h-7 text-green-500"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 21C12 21 4 13.5 4 8.5C4 5.42 6.42 3 9.5 3C11.24 3 12.91 3.81 14 5.08C15.09 3.81 16.76 3 18.5 3C21.58 3 24 5.42 24 8.5C24 13.5 16 21 16 21H12Z"
+          />
+        </svg>
+        Donation Details for {{ product.name }}
+      </h2>
+      <form method="POST" action="{% url 'donation-create' product.id %}">
+        {% csrf_token %}
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1"
+            >Your Name / Organization</label
+          >
+          <input
+            type="text"
+            name="donor_name"
+            class="w-full p-2 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary outline-none"
+            required
+            value="{{ request.user.get_full_name|default:request.user.username }}"
+          />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1"
+            >Contact Email</label
+          >
+          <input
+            type="email"
+            name="contact_email"
+            class="w-full p-2 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary outline-none"
+            required
+            placeholder="your@email.com"
+          />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1"
+            >Contact Number</label
+          >
+          <input
+            type="tel"
+            name="contact"
+            class="w-full p-2 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary outline-none"
+            required
+            pattern="[0-9+\-\s]{7,15}"
+            placeholder="+977-9841000000"
+          />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1"
+            >Pickup Address</label
+          >
+          <textarea
+            name="address"
+            class="w-full p-2 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary outline-none"
+            required
+            rows="3"
+            placeholder="Enter full pickup address"
+          ></textarea>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1"
+            >Preferred Pickup Date & Time</label
+          >
+          <input
+            type="datetime-local"
+            name="pickup_datetime"
+            class="w-full p-2 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary outline-none"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1"
+            >Additional Notes (optional)</label
+          >
+          <textarea
+            name="notes"
+            class="w-full p-2 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary outline-none"
+            rows="2"
+            placeholder="Any special instructions?"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-gradient-to-r from-green-500 to-green-400 text-white rounded-lg py-2 font-semibold hover:from-green-600 hover:to-green-500 transition"
+        >
+          <span class="inline-flex items-center gap-2">
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M5 13l4 4L19 7" />
+            </svg>
+            Confirm Donation
+          </span>
+        </button>
+      </form>
+      <div class="text-center text-xs text-gray-400 mt-2">
+        Your information is kept confidential and used only for donation
+        coordination.
+      </div>
+    </div>
+  </body>
+</html>

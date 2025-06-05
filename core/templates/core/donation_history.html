@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-50">
+<head>
+  <meta charset="UTF-8" />
+  <title>Donation History | FreshGuard+</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="font-sans antialiased min-h-screen dashboard-bg">
+  <div class="flex items-center justify-between px-8 py-6 bg-white shadow">
+    <a href="{% url 'core-dashboard' %}" class="flex items-center space-x-3">
+      <img src="https://img.icons8.com/color/48/000000/cutting-board.png" alt="FreshGuard+" class="w-10 h-10" />
+      <span class="text-2xl font-bold text-primary">FreshGuard+</span>
+    </a>
+    <div class="flex items-center space-x-4">
+      <a href="{% url 'core-donation_portal_dashboard' %}" class="bg-primary text-white px-5 py-2 rounded-lg font-semibold hover:bg-green-600 transition">Back to Portal</a>
+      <a href="{% url 'core-logout' %}" class="bg-gray-100 text-primary px-5 py-2 rounded-lg font-semibold hover:bg-gray-200 transition">Logout</a>
+    </div>
+  </div>
+  <!-- Add a back button below the header -->
+  <div class="max-w-4xl mx-auto mt-6 px-4">
+    <a href="{% url 'core-donation_portal_dashboard' %}" class="inline-flex items-center text-primary hover:underline font-semibold mb-4">
+      <!-- Left arrow SVG -->
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+      Back to Donation Portal
+    </a>
+  </div>
+  <div class="max-w-4xl mx-auto py-12 px-4">
+    <h1 class="text-3xl font-bold text-primary mb-8">Your Donation History</h1>
+    {% if donations %}
+      <div class="space-y-4">
+        {% for donation in donations %}
+          <div class="glass rounded-lg p-6 shadow flex flex-col md:flex-row md:items-center md:justify-between">
+            <div>
+              <div class="font-semibold text-lg text-gray-800">{{ donation.product.name }}</div>
+              <div class="text-gray-700 text-sm">
+                Donated on: {{ donation.created_at|date:"Y-m-d H:i" }}<br>
+                Pickup: {{ donation.pickup_address }}<br>
+                Status: <span class="font-semibold">{{ donation.product.status }}</span>
+              </div>
+            </div>
+            <div class="mt-4 md:mt-0">
+              <span class="bg-green-100 text-green-700 px-3 py-1 rounded-lg font-semibold">Donated</span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-gray-600">You have not made any donations yet.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

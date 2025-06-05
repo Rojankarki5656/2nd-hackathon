@@ -1,0 +1,508 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-50">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FreshGuard+ Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          fontFamily: { sans: ["Inter", "sans-serif"] },
+          extend: {
+            colors: {
+              primary: "#4CAF50",
+              accent: "#FFE066",
+              danger: "#FF6B6B",
+              safe: "#4CAF50",
+              caution: "#FFD166",
+              risky: "#EF476F",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-sans antialiased min-h-screen bg-gray-50">
+    <!-- Dashboard Header -->
+    <div class="flex items-center justify-between px-8 py-6 bg-white shadow">
+      <div class="flex items-center space-x-3">
+        <a
+          href="{% url 'core-dashboard' %}"
+          class="flex items-center space-x-3"
+        >
+          <img
+            src="https://img.icons8.com/color/48/000000/cutting-board.png"
+            alt="FreshGuard+"
+            class="w-10 h-10"
+          />
+          <span class="text-2xl font-bold text-primary">FreshGuard+</span>
+        </a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a
+          href="{% url 'core-profile' %}"
+          class="bg-gray-100 text-primary px-5 py-2 rounded-lg font-semibold hover:bg-gray-200 transition flex items-center"
+          title="Profile"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 4-7 8-7s8 3 8 7"/>
+          </svg>
+          Profile
+        </a>
+        <a
+          href="{% url 'core-logout' %}"
+          class="bg-primary text-white px-5 py-2 rounded-lg font-semibold hover:bg-green-600 transition"
+        >
+          Logout
+        </a>
+      </div>
+    </div>
+
+    <!-- Dashboard Features -->
+    <div class="max-w-6xl mx-auto py-12 px-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div
+          class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center hover:shadow-2xl transition cursor-pointer"
+          onclick="window.location.href='{% url 'core-ai_waste_dashboard' %}'"
+        >
+          <div class="bg-green-100 rounded-full p-4 mb-4">
+            <svg
+              class="w-8 h-8 text-primary"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 8v4l3 3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle cx="12" cy="12" r="10" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2 text-primary text-center">
+            AI-Powered Waste Reduction & Recipes
+          </h3>
+          <p class="text-gray-600 text-center">
+            Get smart suggestions to reduce food waste and discover recipes based
+            on your leftover ingredients.
+          </p>
+        </div>
+        <!-- Feature 2 -->
+        <div
+          class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center hover:shadow-2xl transition cursor-pointer"
+          onclick="window.location.href='{% url 'core-ingredient_scanner_dashboard' %}'"
+        >
+          <div class="bg-yellow-100 rounded-full p-4 mb-4">
+            <svg
+              class="w-8 h-8 text-yellow-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 20v-6M12 4v2M6.93 6.93l-1.42 1.42M17.07 6.93l1.42 1.42M4 12H2M22 12h-2M6.93 17.07l-1.42-1.42M17.07 17.07l1.42-1.42"
+              />
+              <circle cx="12" cy="12" r="5" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2 text-yellow-600 text-center">
+            Ingredient Safety Scanner
+          </h3>
+          <p class="text-gray-600 text-center">
+            Scan or enter ingredients to check for safety, freshness, and possible
+            health risks.
+          </p>
+        </div>
+        <!-- Feature 3 -->
+        <div
+          class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center hover:shadow-2xl transition cursor-pointer"
+          onclick="window.location.href='{% url 'core-donation_portal_dashboard' %}'"
+        >
+          <div class="bg-blue-100 rounded-full p-4 mb-4">
+            <svg
+              class="w-8 h-8 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 8c-2.21 0-4 1.79-4 4 0 2.21 1.79 4 4 4s4-1.79 4-4c0-2.21-1.79-4-4-4zm0 0V4m0 16v-4"
+              />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2 text-blue-600 text-center">
+            Donation Matchmaking Portal
+          </h3>
+          <p class="text-gray-600 text-center">
+            Connect with local charities and NGOs to donate surplus food easily
+            and efficiently.
+          </p>
+        </div>
+        <!-- Feature 4 -->
+        <div
+          class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center hover:shadow-2xl transition cursor-pointer"
+          onclick="window.location.href='{% url 'core-community_watch' %}'"
+        >
+          <div class="bg-red-100 rounded-full p-4 mb-4">
+            <svg
+              class="w-8 h-8 text-red-500"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M18 8a6 6 0 1 0-12 0c0 7 6 13 6 13s6-6 6-13z" />
+              <circle cx="12" cy="8" r="2" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2 text-red-600 text-center">
+            Community Watch & Reporting
+          </h3>
+          <p class="text-gray-600 text-center">
+            Report unsafe food practices and help build a safer, more informed
+            community.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Chat Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+      <!-- Chat Button -->
+      <button
+        onclick="toggleChat()"
+        class="w-14 h-14 bg-gradient-to-r from-primary to-green-600 rounded-full shadow-lg flex items-center justify-center transform transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        id="chatButton"
+      >
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+        </svg>
+      </button>
+
+      <!-- Chat Container -->
+      <div
+        class="fixed bottom-24 right-6 w-96 bg-white rounded-xl shadow-2xl transform transition-all duration-300 origin-bottom-right scale-0 opacity-0"
+        id="chatContainer"
+      >
+        <div class="chat-header bg-gradient-to-r from-primary to-green-600 text-white p-4 rounded-t-xl flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold">Food Safety Assistant</h3>
+          </div>
+          <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+        </div>
+        <div class="chat-body p-4 h-96 overflow-y-auto bg-gradient-to-b from-gray-50 to-white" id="chatbox">
+          <div class="message bot-message bg-white rounded-2xl p-4 mb-4 shadow-sm border border-gray-100 transform transition-all duration-300 hover:shadow-md">
+            <div class="flex items-start space-x-2">
+              <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+              <div class="flex-1">
+                <div class="text-sm font-medium text-gray-900 mb-1">Food Safety Assistant</div>
+                <div class="text-gray-700">
+                  Hello! I'm your Food Safety Assistant. I can help you with:
+                  <ul class="list-disc pl-5 mt-2 space-y-1">
+                    <li class="flex items-center space-x-2">
+                      <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Food handling and storage</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                      <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Preventing foodborne illnesses</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                      <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Food safety regulations</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                      <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Best practices for restaurants</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                      <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Home food safety tips</span>
+                    </li>
+                  </ul>
+                  How can I help you today?
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-footer p-4 border-t bg-white">
+          <div class="flex gap-2">
+            <input
+              type="text"
+              id="userInput"
+              placeholder="Ask about food safety..."
+              class="flex-1 px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+              onkeypress="handleKeyPress(event)"
+            >
+            <button
+              onclick="sendMessage()"
+              class="bg-gradient-to-r from-primary to-green-600 text-white px-4 py-2 rounded-xl hover:from-green-600 hover:to-primary transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+            </button>
+          </div>
+          <div class="text-sm text-gray-500 mt-2 flex items-center space-x-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Try asking: "How to store food safely?" or "What are the main food safety regulations?"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      body.dark {
+        background: #1a2233;
+      }
+      .dark .bg-white {
+        background: #23293f !important;
+      }
+      .dark .text-gray-700,
+      .dark .text-gray-600 {
+        color: #f3f4f6 !important;
+      }
+      .dark .text-gray-400,
+      .dark .text-gray-500 {
+        color: #cbd5e1 !important;
+      }
+      .dark .shadow {
+        box-shadow: 0 5px 20px 0 rgba(30, 41, 59, 0.4) !important;
+      }
+      .dark input,
+      .dark textarea {
+        background: #23293f !important;
+        color: #f3f4f6 !important;
+        border-color: #334155 !important;
+      }
+      .dark .bg-gray-50 {
+        background: #1a2233 !important;
+      }
+      .dark .bg-primary {
+        background: #4caf50 !important;
+      }
+      .dark .bg-danger {
+        background: #ff6b6b !important;
+      }
+      .dark .text-primary {
+        color: #4caf50 !important;
+      }
+      .dark .text-danger {
+        color: #ff6b6b !important;
+      }
+
+      /* Chat Animation */
+      .chat-container-open {
+        transform: scale(1) !important;
+        opacity: 1 !important;
+      }
+
+      .chat-button-rotate {
+        transform: rotate(45deg) !important;
+      }
+
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+
+      .chat-button-bounce {
+        animation: bounce 1s infinite;
+      }
+    </style>
+
+    <script>
+      function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+          sendMessage();
+        }
+      }
+
+      function sendMessage() {
+        const userInput = document.getElementById('userInput');
+        const message = userInput.value.trim();
+        
+        if (!message) return;
+
+        // Add user message to chat
+        const chatbox = document.getElementById('chatbox');
+        chatbox.innerHTML += `
+          <div class=\"message user-message bg-gradient-to-r from-primary to-green-600 text-white rounded-2xl p-4 mb-4 shadow-sm transform transition-all duration-300 hover:shadow-md ml-auto max-w-[80%]">
+            <div class=\"flex items-end space-x-2\">
+              <div class=\"flex-1\">
+                <div class=\"text-sm font-medium mb-1\">You</div>
+                <div>${message}</div>
+              </div>
+              <div class=\"w-8 h-8 bg-white rounded-full flex items-center justify-center flex-shrink-0\">
+                <svg class=\"w-5 h-5 text-primary\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">
+                  <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z\" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Clear input
+        userInput.value = '';
+
+        // Scroll to bottom
+        chatbox.scrollTop = chatbox.scrollHeight;
+
+        // Send to backend
+        fetch('/chatbot/get_response/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': getCookie('csrftoken'),
+          },
+          body: `message=${encodeURIComponent(message)}`,
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            chatbox.innerHTML += `
+              <div class=\"message bot-message bg-red-50 rounded-2xl p-4 mb-4 shadow-sm border border-red-100 transform transition-all duration-300 hover:shadow-md\">
+                <div class=\"flex items-start space-x-2\">
+                  <div class=\"w-8 h-8 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0\">
+                    <svg class=\"w-5 h-5 text-white\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">
+                      <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z\" />
+                    </svg>
+                  </div>
+                  <div class=\"flex-1\">
+                    <div class=\"text-sm font-medium text-red-900 mb-1\">Error</div>
+                    <div class=\"text-red-700\">${data.error}</div>
+                  </div>
+                </div>
+              </div>
+            `;
+          } else if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+            chatbox.innerHTML += `
+              <div class=\"message bot-message bg-white rounded-2xl p-4 mb-4 shadow-sm border border-gray-100 transform transition-all duration-300 hover:shadow-md\">
+                <div class=\"flex items-start space-x-2\">
+                  <div class=\"w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0\">
+                    <svg class=\"w-5 h-5 text-white\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">
+                      <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z\" />
+                    </svg>
+                  </div>
+                  <div class=\"flex-1\">
+                    <div class=\"text-sm font-medium text-gray-900 mb-1\">Food Safety Assistant</div>
+                    <div class=\"text-gray-700\">${data.choices[0].message.content}</div>
+                  </div>
+                </div>
+              </div>
+            `;
+          } else {
+            chatbox.innerHTML += `
+              <div class=\"message bot-message bg-red-50 rounded-2xl p-4 mb-4 shadow-sm border border-red-100 transform transition-all duration-300 hover:shadow-md\">
+                <div class=\"flex items-start space-x-2\">
+                  <div class=\"w-8 h-8 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0\">
+                    <svg class=\"w-5 h-5 text-white\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">
+                      <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z\" />
+                    </svg>
+                  </div>
+                  <div class=\"flex-1\">
+                    <div class=\"text-sm font-medium text-red-900 mb-1\">Error</div>
+                    <div class=\"text-red-700\">Sorry, I encountered an unexpected error. Please try again.</div>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+          chatbox.scrollTop = chatbox.scrollHeight;
+        });
+      }
+
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+
+      function toggleChat() {
+        const chatContainer = document.getElementById('chatContainer');
+        const chatButton = document.getElementById('chatButton');
+        
+        if (chatContainer.classList.contains('scale-0')) {
+          // Open chat
+          chatContainer.classList.remove('scale-0', 'opacity-0');
+          chatContainer.classList.add('chat-container-open');
+          chatButton.classList.add('chat-button-rotate');
+          chatButton.classList.remove('chat-button-bounce');
+        } else {
+          // Close chat
+          chatContainer.classList.remove('chat-container-open');
+          chatContainer.classList.add('scale-0', 'opacity-0');
+          chatButton.classList.remove('chat-button-rotate');
+        }
+      }
+
+      // Add bounce animation to chat button when page loads
+      window.addEventListener('load', () => {
+        const chatButton = document.getElementById('chatButton');
+        chatButton.classList.add('chat-button-bounce');
+        
+        // Remove bounce animation after 3 seconds
+        setTimeout(() => {
+          chatButton.classList.remove('chat-button-bounce');
+        }, 3000);
+      });
+
+      // Close chat when clicking outside
+      document.addEventListener('click', (event) => {
+        const chatContainer = document.getElementById('chatContainer');
+        const chatButton = document.getElementById('chatButton');
+        
+        if (!chatContainer.contains(event.target) && !chatButton.contains(event.target)) {
+          if (!chatContainer.classList.contains('scale-0')) {
+            chatContainer.classList.remove('chat-container-open');
+            chatContainer.classList.add('scale-0', 'opacity-0');
+            chatButton.classList.remove('chat-button-rotate');
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

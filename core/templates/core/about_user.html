@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-50">
+  <head>
+    <meta charset="UTF-8" />
+    <title>About Yourself | FreshGuard+</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background: linear-gradient(135deg, #e0f7fa 0%, #fffde4 100%);
+      }
+      .custom-shadow {
+        box-shadow: 0 8px 32px 0 rgba(60, 72, 88, 0.15);
+      }
+      .custom-label {
+        color: #4caf50;
+        font-weight: 600;
+      }
+      .custom-btn {
+        background: linear-gradient(90deg, #4caf50 60%, #81c784 100%);
+        transition: background 0.2s;
+      }
+      .custom-btn:hover {
+        background: linear-gradient(90deg, #388e3c 60%, #66bb6a 100%);
+      }
+    </style>
+  </head>
+  <body
+    class="font-sans antialiased min-h-screen flex flex-col justify-center items-center bg-gray-50"
+  >
+    <div
+      class="w-full max-w-md bg-white rounded-2xl custom-shadow p-8 space-y-8 mt-10"
+    >
+      <h2 class="text-center text-2xl font-bold text-primary mb-4">
+        Tell us about yourself
+      </h2>
+      <form
+        method="post"
+        action="{% url 'core-about-user' %}"
+        class="space-y-5"
+      >
+        {% csrf_token %}
+        <div>
+          <label class="block text-sm custom-label mb-1">Gender</label>
+          <select
+            name="gender"
+            class="w-full p-2 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary outline-none"
+            required
+          >
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+            <option>Prefer not to say</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm custom-label mb-1">Date of Birth</label>
+          <input
+            type="date"
+            name="dob"
+            class="w-full p-2 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary outline-none"
+            required
+          />
+        </div>
+        <div>
+          <label class="block text-sm custom-label mb-1"
+            >Medical Condition</label
+          >
+          <div class="relative">
+            <button
+              type="button"
+              id="dropdownMedicalBtn"
+              class="w-full p-2 border border-gray-200 rounded-lg bg-white text-left focus:ring-primary focus:border-primary outline-none flex justify-between items-center"
+              onclick="toggleDropdown()"
+            >
+              <span id="dropdownSelected">Select Medical Condition(s)</span>
+              <svg
+                class="w-4 h-4 ml-2 inline"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div
+              id="dropdownMedical"
+              class="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg hidden"
+            >
+              <label class="flex items-center px-4 py-2 hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  name="medical_condition"
+                  value="None"
+                  class="mr-2"
+                />
+                None
+              </label>
+              <label class="flex items-center px-4 py-2 hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  name="medical_condition"
+                  value="Diabetes"
+                  class="mr-2"
+                />
+                Diabetes
+              </label>
+              <label class="flex items-center px-4 py-2 hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  name="medical_condition"
+                  value="Hypertension"
+                  class="mr-2"
+                />
+                Hypertension
+              </label>
+              <label class="flex items-center px-4 py-2 hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  name="medical_condition"
+                  value="Asthma"
+                  class="mr-2"
+                />
+                Asthma
+              </label>
+              <label class="flex items-center px-4 py-2 hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  name="medical_condition"
+                  value="Allergy (Peanut)"
+                  class="mr-2"
+                />
+                Allergy (Peanut)
+              </label>
+              <label class="flex items-center px-4 py-2 hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  name="medical_condition"
+                  value="Allergy (Lactose)"
+                  class="mr-2"
+                />
+                Allergy (Lactose)
+              </label>
+              <label class="flex items-center px-4 py-2 hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  name="medical_condition"
+                  value="Heart Disease"
+                  class="mr-2"
+                />
+                Heart Disease
+              </label>
+              <label class="flex items-center px-4 py-2 hover:bg-gray-50">
+                <input
+                  type="checkbox"
+                  name="medical_condition"
+                  value="Other"
+                  class="mr-2"
+                />
+                Other
+              </label>
+            </div>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">
+            Select one or more medical conditions.
+          </p>
+        </div>
+        <button
+          type="submit"
+          class="w-full custom-btn text-white rounded-lg py-2 font-semibold shadow hover:shadow-lg transition"
+        >
+          Save & Continue
+        </button>
+      </form>
+    </div>
+    <script>
+      function toggleDropdown() {
+        document.getElementById("dropdownMedical").classList.toggle("hidden");
+      }
+      // Update selected text
+      const dropdown = document.getElementById("dropdownMedical");
+      const selectedSpan = document.getElementById("dropdownSelected");
+      dropdown.addEventListener("change", function () {
+        const checked = Array.from(
+          dropdown.querySelectorAll("input[type=checkbox]:checked")
+        ).map((cb) => cb.parentNode.textContent.trim());
+        selectedSpan.textContent = checked.length
+          ? checked.join(", ")
+          : "Select Medical Condition(s)";
+      });
+      // Close dropdown if clicked outside
+      document.addEventListener("click", function (event) {
+        const btn = document.getElementById("dropdownMedicalBtn");
+        const menu = document.getElementById("dropdownMedical");
+        if (!btn.contains(event.target) && !menu.contains(event.target)) {
+          menu.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

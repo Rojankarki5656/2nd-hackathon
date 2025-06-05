@@ -1,0 +1,248 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-50">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FreshGuard+ Signup</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          fontFamily: { sans: ["Inter", "sans-serif"] },
+          extend: {
+            colors: {
+              primary: "#4CAF50",
+              accent: "#FFE066",
+              danger: "#FF6B6B",
+              safe: "#4CAF50",
+              caution: "#FFD166",
+              risky: "#EF476F",
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="font-sans antialiased min-h-screen flex flex-col">
+    <!-- Signup Page -->
+    <div
+      class="min-h-screen w-full flex items-center justify-center bg-gradient-to-bl from-green-100 via-yellow-50 to-red-50 relative"
+    >
+      <div class="absolute inset-0 pointer-events-none">
+        <!-- Food safety/Nepalese market illustration SVG -->
+        <svg
+          class="absolute right-0 bottom-0 w-80 h-60 opacity-30"
+          fill="none"
+          viewBox="0 0 400 300"
+        >
+          <ellipse cx="200" cy="150" rx="180" ry="90" fill="#d1fae5" />
+          <g>
+            <rect
+              x="90"
+              y="180"
+              width="70"
+              height="40"
+              rx="12"
+              fill="#FFE066"
+            />
+            <circle cx="125" cy="200" r="18" fill="#FF6B6B" />
+            <rect
+              x="170"
+              y="170"
+              width="110"
+              height="50"
+              rx="14"
+              fill="#B7E4C7"
+            />
+            <rect
+              x="200"
+              y="185"
+              width="40"
+              height="20"
+              rx="8"
+              fill="#FFEDC2"
+            />
+            <rect
+              x="250"
+              y="180"
+              width="18"
+              height="25"
+              rx="6"
+              fill="#FFD166"
+            />
+          </g>
+        </svg>
+      </div>
+      <div
+        class="z-10 w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-8"
+      >
+        <div class="flex items-center justify-center space-x-2">
+          <img
+            src="https://img.icons8.com/color/48/000000/cutting-board.png"
+            alt="FreshGuard+"
+            class="w-10 h-10"
+          />
+          <h1 class="text-2xl font-bold text-primary">FreshGuard+</h1>
+        </div>
+        <h2 class="text-center text-lg font-semibold text-gray-700">
+          Create Your Account
+        </h2>
+        <form id="signup-form" action="{% url 'core-signup' %}" class="space-y-5" method="POST" onsubmit="return validatePasswords()">
+          {% csrf_token %}
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1"
+              >Full Name</label
+            >
+            <input
+              type="text"
+              name="full_name"
+              placeholder="Your Name"
+              class="w-full p-2 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary outline-none"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1"
+              >Email</label
+            >
+            <input
+              type="email"
+              name="email"
+              placeholder="you@email.com"
+              class="w-full p-2 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary outline-none"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1"
+              >Password</label
+            >
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="••••••••"
+              class="w-full p-2 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary outline-none"
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1"
+              >Confirm Password</label
+            >
+            <input
+              type="password"
+              name="confirm_password"
+              id="confirm-password"
+              placeholder="••••••••"
+              class="w-full p-2 border border-gray-200 rounded-lg focus:ring-primary focus:border-primary outline-none"
+              required
+            />
+            <p id="password-error" class="text-sm text-danger hidden">
+              Passwords do not match
+            </p>
+          </div>
+          {% if user_signup_error %}
+            <p class="text-sm text-center text-danger">{{ user_signup_error }}</p>
+          {% endif %}
+          {% if admin_signup_error %}
+            <p class="text-sm text-center text-danger">{{ admin_signup_error }}</p>
+          {% endif %}
+          <button
+            type="submit"
+            class="w-full bg-primary text-white rounded-lg py-2 font-semibold hover:bg-green-600 transition"
+          >
+            Sign Up
+          </button>
+          <div class="text-sm text-center text-gray-500">
+            Already have an account?
+            <a
+              href="{% url 'core-login' %}"
+              class="text-primary font-semibold hover:underline"
+            >
+              Login
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function setRole(role) {
+        document.getElementById("role").value = role;
+        const adminCodeField = document.getElementById("admin-code-field");
+        if (role === "admin") {
+          adminCodeField.classList.remove("hidden");
+        } else {
+          adminCodeField.classList.add("hidden");
+          document.querySelector('input[name="admin_code"]').value = "";
+        }
+      }
+
+      function validatePasswords() {
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+          document.getElementById("confirm-password").value;
+        const errorElement = document.getElementById("password-error");
+
+        if (password !== confirmPassword) {
+          errorElement.classList.remove("hidden");
+          return false;
+        } else {
+          errorElement.classList.add("hidden");
+          return true;
+        }
+      }
+    </script>
+
+    <style>
+      body.dark {
+        background: #1a2233;
+      }
+      .dark .bg-white {
+        background: #23293f !important;
+      }
+      .dark .text-gray-700,
+      .dark .text-gray-600 {
+        color: #f3f4f6 !important;
+      }
+      .dark .text-gray-400,
+      .dark .text-gray-500 {
+        color: #cbd5e1 !important;
+      }
+      .dark .shadow {
+        box-shadow: 0 5px 20px 0 rgba(30, 41, 59, 0.4) !important;
+      }
+      .dark input,
+      .dark textarea {
+        background: #23293f !important;
+        color: #f3f4f6 !important;
+        border-color: #334155 !important;
+      }
+      .dark .bg-gray-50 {
+        background: #1a2233 !important;
+      }
+      .dark .bg-primary {
+        background: #4caf50 !important;
+      }
+      .dark .bg-danger {
+        background: #ff6b6b !important;
+      }
+      .dark .text-primary {
+        color: #4caf50 !important;
+      }
+      .dark .text-danger {
+        color: #ff6b6b !important;
+      }
+    </style>
+  </body>
+</html>
