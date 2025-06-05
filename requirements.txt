@@ -1,0 +1,7 @@
+Django>=3.2,<5.0
+requests
+pytz
+Pillow
+# SQLite3 is included with Python, so no extra package is needed.
+python-dotenv  # Optional, for environment variable management
+django-debug-toolbar  # Optional, for development/debugging
